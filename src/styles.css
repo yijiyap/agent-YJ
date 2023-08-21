@@ -1,0 +1,14 @@
+#header-div {
+    text-align: center;
+}
+
+#header-nav {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#header-logo {
+    max-width: 150px;
+    max-height: 150px;
+    filter: brightness(100%);
+}
