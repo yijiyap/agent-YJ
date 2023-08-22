@@ -5,6 +5,22 @@
 #header-nav {
     margin-top: 10px;
     text-align: center;
+    padding: 5px;
+    margin-left: 0px;
+}
+
+nav {
+    background-color: bisque;
+}
+
+nav li {
+    display: inline;
+    margin: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
 }
 
 #header-logo {
@@ -12,3 +28,13 @@
     max-height: 150px;
     filter: brightness(100%);
 }
+
+.place-order-div {
+    margin-top: 20px;
+}
+
+#place-order-errors {
+    margin-top: 20px;
+    color:cornflowerblue;
+}
+
