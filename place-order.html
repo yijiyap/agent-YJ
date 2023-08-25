@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agent YJ</title>
-    <script type="module" src="./src/index.js"></script>
     <script type="module" src="./src/firebaseApp.js"></script>
-    <script type="text/javascript" src="/src/index.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="src/styles.css">
+    <script async type="text/javascript" src="/src/index.js"></script>
 </head>
 
 <body>
-    <div id="firstChild"></div>
+    <div id="parentElement">
+        <span id="childElement"></span>
+    </div>
     <div class="place-order-div">
         <form action name="order-form" id="order-form" class="place-order-div-form" onsubmit="return validateForm()" method="post">
             <div>
@@ -34,7 +35,7 @@
         </form>
 
         <div id="place-order-errors">
-            
+
         </div>
 
 
