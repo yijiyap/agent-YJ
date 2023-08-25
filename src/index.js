@@ -1,3 +1,52 @@
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
+
+//********************************************* form validation *********************************************
+//FUNCTION RUNS,BUT IT JUST REFRESHES THE PAGE
+export function validateForm() {
+  let errors = [];
+  var errorMsgs = document.getElementById("place-order-errors");
+  errorMsgs.innerHTML = ""; // reset the HTML if it is repeated multiple times;
+
+  let input_link = document.forms["order-form"]["product-link"].value;
+  if (!input_link.includes("item.taobao.com") && !input_link.includes("weidian.com")) {
+    errors.push("Please enter a valid taobao or weidian link")
+  }
+  let input_size = document.forms["order-form"]["size"].value;
+  if (isNaN(input_size) && input_size.toLowerCase() !== "na") {
+    errors.push("Please enter a number or 'NA' for size")
+  }
+  let input_qty = document.forms["order-form"]["quantity"].value;
+  if (isNaN(input_qty)) {
+    errors.push("Please enter a number for qty");
+  }
+
+  // if any errors, display it 
+  if (errors.length > 0) {
+    errorMsgs.innerHTML += "<ol>";
+    for (var i = 0; i < errors.length; i++) {
+      errorMsgs.innerHTML += `<li>${errors[i]}</li>`;
+    }
+    errorMsgs.innerHTML += "</ol>";
+  }
+  return errors;
+}
+
+export function handleForm(event) {
+  // Validate the form before submission
+  let errors = validateForm();
+  if (errors.length > 0) {
+    event.preventDefault(); // Prevent form submission
+    return;
+  } else {
+    // edit firebase
+    console.log("ok");
+  }
+}
+
+// form.addEventListener('submit', handleForm);
+
+// ********************************************* end of form validation *********************************************
+
 // header
 
 const headerTemplate = document.createElement("div");
@@ -18,56 +67,8 @@ parentDiv.insertBefore(headerTemplate, sp2);
 
 // end of header
 
-//********************************************* form validation *********************************************
-
-function validateForm() {
-  errors = [];
-  var errorMsgs = document.getElementById("place-order-errors");
-  errorMsgs.innerHTML = ""; // reset the HTML if it is repeated multiple times;
-
-  let input_link = document.forms["order-form"]["product-link"].value;
-  if (!input_link.includes("item.taobao.com") && !input_link.includes("weidian.com")) {
-    errors.push("Please enter a valid taobao or weidian link")
-  }
-  let input_size = document.forms["order-form"]["size"].value;
-  if (isNaN(input_size) && input_size.toLowerCase() !== "na") {
-    errors.push("Please enter a number or 'NA' for size")
-  }
-  let input_qty = document.forms["order-form"]["quantity"].value;
-  if (isNaN(input_qty)) {
-    errors.push("Please enter a number for qty");
-  }
-
-  // if any errors, display it 
-  if (errors.length > 0) {
-    errorMsgs.innerHTML += "<ol>";
-    for (i = 0; i < errors.length; i++) {
-      errorMsgs.innerHTML += `<li>${errors[i]}</li>`;
-    }
-    errorMsgs.innerHTML += "</ol>";
-  }
-}
-
-var form = document.getElementById("order-form");
-function handleForm(event) {
-  // Validate the form before submission
-  validateForm();
-
-  // Check if there are any errors
-  if (errors.length > 0) {
-    event.preventDefault(); // Prevent form submission
-    return;
-  }
-
-  else {
-    // edit firebase
-  }
-}
-
-form.addEventListener('submit', handleForm);
-
-// ********************************************* end of form validation *********************************************
 
 // script to receive from firebase
+
 
 // end of script
