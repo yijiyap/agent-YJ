@@ -12,13 +12,11 @@
     <link rel="stylesheet" href="src/styles.css">
     <script type="module" src="./src/auth.js"></script>
     <script type="module">
-        import { handleSignUp } from "./src/auth.js";
+        import { handleSignUp, handleSignIn } from "./src/auth.js";
         // changing the scope 
         window.importedHandleSignUp = function importedHandleSignUp(event) {
             handleSignUp(event);
         };
-        import { handleSignIn } from "./src/auth.js";
-        // changing the scope 
         window.importedHandleSignIn = function importedHandleSignIn(event) {
             handleSignIn(event);
         };

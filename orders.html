@@ -9,6 +9,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="src/styles.css">
     <script type="module">
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
+        
         import { handleForm } from "./src/index.js";
         // changing the scope 
         window.importedHandleForm = function importedHandleForm(event) {

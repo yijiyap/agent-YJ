@@ -1,5 +1,5 @@
 import { app } from './firebase.js';
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
 let auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -62,12 +62,21 @@ export function handleForm(event) {
     return;
   } else {
     // edit firebase
-    let productLink = document.getElementById("productLink").value;
-    let size = document.getElementById("size").value;
-    let color = document.getElementById("color").value;
-    let quantity = document.getElementById("quantity").value;
-    testInput(productLink, size, color, quantity);
-    alert("Order has been successfully added!");
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userId = user.uid;
+        let productLink = document.getElementById("productLink").value;
+        let size = document.getElementById("size").value;
+        let color = document.getElementById("color").value;
+        let quantity = document.getElementById("quantity").value;
+        inputOrder(userId, productLink, size, color, quantity);
+        alert("Order has been successfully added!");
+      } else {
+        alert("Sign in first please!");
+        return;
+      }
+    });
   }
 }
 
@@ -78,20 +87,7 @@ import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.c
 import { db } from "./firebase.js";
 
 function inputOrder(userId, productLink, size, color, quantity) {
-  // order already exists! are you sure you want to add again?
-
-  var ordersRef = ref('users/' + userId + '/orders/')
-  var newOrderRef = ordersRef.push(); // generates a unique "orderId"
-  newOrderRef.set({
-    productLink: productLink,
-    size: size,
-    color: color,
-    quantity: quantity
-  });
-}
-
-function testInput(productLink, size, color, quantity) {
-  var ordersRef = ref(db, 'orders/');
+  var ordersRef = ref(db, 'users/' + userId + '/orders/')
   var newOrderRef = push(ordersRef); // generates a unique "orderId"
   set(newOrderRef, {
     productLink: productLink,
@@ -100,46 +96,55 @@ function testInput(productLink, size, color, quantity) {
     quantity: quantity,
     status: "Order received"
   });
+}
 
-};
 // end of script
 
 // script to print table (right now it only shows when there is a change in data)
 export function createTestOrdersTable() {
-  var ordersRef = ref(db, 'orders/');
-  onValue(ordersRef, (snapshot) => { // when there is a change in the data, we update the table
-    var table = document.createElement('table');
-    var thead = document.createElement('thead');
-    var headers = ["productLink", "size", "color", "quantity", "status"];
-    var tr = document.createElement('tr');
-    for (var i = 0; i < headers.length; i++) {
-      var th = document.createElement('th');
-      th.appendChild(document.createTextNode(headers[i]));
-      tr.appendChild(th);
-    }
-    thead.appendChild(tr);
-    table.appendChild(thead);
-    var tbody = document.createElement('tbody');
-    const data = snapshot.val();
-    for (var key in data) {
-      var tr = document.createElement('tr');
-      for (var i = 0; i < headers.length; i++) {
-        var td = document.createElement('td');
-        if (headers[i] === "productLink") {
-          var a = document.createElement('a');
-          a.href = data[key][headers[i]];
-          a.textContent = data[key][headers[i]];
-          td.appendChild(a);
-        } else {
-          td.appendChild(document.createTextNode(data[key][headers[i]]));
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const userId = user.uid;
+      var ordersRef = ref(db, 'users/' + userId + '/orders/');
+      onValue(ordersRef, (snapshot) => { // when there is a change in the data, we update the table
+        var table = document.createElement('table');
+        var thead = document.createElement('thead');
+        var headers = ["productLink", "size", "color", "quantity", "status"];
+        var tr = document.createElement('tr');
+        for (var i = 0; i < headers.length; i++) {
+          var th = document.createElement('th');
+          th.appendChild(document.createTextNode(headers[i]));
+          tr.appendChild(th);
         }
-        tr.appendChild(td);
-      }
-      tbody.appendChild(tr);
+        thead.appendChild(tr);
+        table.appendChild(thead);
+        var tbody = document.createElement('tbody');
+        const data = snapshot.val();
+        for (var key in data) {
+          var tr = document.createElement('tr');
+          for (var i = 0; i < headers.length; i++) {
+            var td = document.createElement('td');
+            if (headers[i] === "productLink") {
+              var a = document.createElement('a');
+              a.href = data[key][headers[i]];
+              a.textContent = data[key][headers[i]];
+              td.appendChild(a);
+            } else {
+              td.appendChild(document.createTextNode(data[key][headers[i]]));
+            }
+            tr.appendChild(td);
+          }
+          tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        let orderTableDiv = document.getElementById("orderTableDiv");
+        orderTableDiv.textContent = "";
+        orderTableDiv.appendChild(table);
+      });
+    } else {
+      alert("Sign in first please!");
+      return;
     }
-    table.appendChild(tbody);
-    let orderTableDiv = document.getElementById("orderTableDiv");
-    orderTableDiv.textContent = "";
-    orderTableDiv.appendChild(table);
   });
 }
