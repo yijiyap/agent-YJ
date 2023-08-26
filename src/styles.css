@@ -2,6 +2,23 @@ body {
     background-color: rgb(237, 237, 237);
 }
 
+#mainDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.adColumn {
+    flex: 1;
+    margin: 0 10px;
+}
+#rightColumn {
+    flex: 1;
+    margin: 0 10px;
+}
+#content {
+    flex: 3;
+    margin: 0 10px;
+}
+
 #parentElement {
     text-align: center;
     background-color: white;
@@ -53,7 +70,6 @@ nav a {
     margin-top: 20px;
     color: cornflowerblue;
 }
-
 
 #emailText {
     margin-bottom: 1px;
@@ -135,4 +151,17 @@ nav a {
 
 table,th,td {
     border: 1px solid;
+}
+
+.meme {
+    max-width: 300px;
+    margin: 20px;
+}
+
+#leftColumn{
+    border-right: 1px solid grey;
+}
+
+#rightColumn{
+    border-left: 1px solid grey;
 }
