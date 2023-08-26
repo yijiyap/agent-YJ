@@ -1,16 +1,32 @@
-#header-div {
+body {
+    background-color: rgb(237, 237, 237);
+}
+
+#parentElement {
     text-align: center;
+    background-color: white;
+    margin: 0px;
+    max-width: 100%;
+}
+
+#header-div {
+    padding: 5px;
+    margin: 0px;
+    max-width: 100%;
 }
 
 #header-nav {
-    margin-top: 10px;
+    margin-top: 0px;
     text-align: center;
     padding: 5px;
     margin-left: 0px;
+    max-width: 100%;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 nav {
-    background-color: bisque;
+    background-color: #CFFCFF;
 }
 
 nav li {
@@ -29,16 +45,94 @@ nav a {
     filter: brightness(100%);
 }
 
-.place-order-div {
+#placeOrderDiv {
     margin-top: 20px;
 }
 
 #place-order-errors {
     margin-top: 20px;
-    color:cornflowerblue;
+    color: cornflowerblue;
 }
 
 
 #emailText {
     margin-bottom: 1px;
+}
+
+#issueDiv {
+    margin-top: 20px;
+}
+
+#countdown-div {
+    background-color: #AAEFDF;
+    max-width: fit-content;
+    padding: 100px;
+    max-width: 100%;
+    margin: 5px 0px 5px 0px;
+    text-align: center;
+}
+
+#countdown {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#top-selling-div {
+    background-color: #9EE37D;
+    max-width: fit-content;
+    padding: 100px;
+    margin: 5px 0px 5px 0px;
+    max-width: 100%;
+    text-align: center;
+}
+
+#top-selling {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#forFlexing {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+}
+
+#customerCountDiv {
+    background-color: #63c132;
+    border-radius: 10%;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+#customerCount {
+    font-size: 40px;
+}
+
+#ordersFulfilled {
+    font-size: 40px;
+}
+
+#shippingTime {
+    font-size: 40px;
+}
+
+#ordersFulfilledDiv {
+    background-color: #358600;
+    border-radius: 10%;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+#shippingTimeDiv {
+    background-color: #466365;
+    border-radius: 10%;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+table,th,td {
+    border: 1px solid;
 }
