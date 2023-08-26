@@ -36,7 +36,7 @@
     
 
     <div class="place-order-div">
-        <h1>Add new orders</h1>
+        <h1>Add new order</h1>
         <form action name="order-form" id="order-form" class="place-order-div-form"
             onsubmit="return importedHandleForm(event)" method="post">
             <div>
@@ -57,6 +57,17 @@
 
         <div id="place-order-errors">
 
+        </div>
+
+        <div>
+            <h3> Any issues with the order?</h3>
+            <form id="emailForm" action="mailto:your-email@example.com" method="post" >
+                <input type="email" placeholder="Your email address" id="emailText">
+                <br>
+                <textarea name="message" id="" cols="30" rows="10" placeholder="Tell us your issue"></textarea>
+                <br>
+                <input type="submit" value="Send Email">
+            </form>
         </div>
     </div>
 
