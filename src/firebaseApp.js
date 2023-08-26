@@ -1,4 +1,4 @@
-import {app, firestore} from "./firebase.js"; 
+import {app, db} from "./firebase.js"; 
 
 const firebaseApp = app;
 

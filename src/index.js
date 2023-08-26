@@ -1,13 +1,28 @@
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
+// header
+const headerTemplate = document.createElement("div");
+headerTemplate.innerHTML = `<div id="header-div">
+<img src="images/agent-yj-logo.png" alt="logo" id="header-logo">
+</div>
+<nav id="header-nav">
+<ul>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./login.html">Login</a></li>
+    <li><a href="./place-order.html">Place Order</a></li>
+    <li><a href="./track-order.html">Track Order</a></li>
+</ul>
+</nav>`;
+let sp2 = document.getElementById("childElement");
+let parentDiv = sp2.parentNode;
+parentDiv.insertBefore(headerTemplate, sp2);
+// end of header
 
 //********************************************* form validation *********************************************
-//FUNCTION RUNS,BUT IT JUST REFRESHES THE PAGE
 export function validateForm() {
   let errors = [];
   var errorMsgs = document.getElementById("place-order-errors");
   errorMsgs.innerHTML = ""; // reset the HTML if it is repeated multiple times;
 
-  let input_link = document.forms["order-form"]["product-link"].value;
+  let input_link = document.forms["order-form"]["productLink"].value;
   if (!input_link.includes("item.taobao.com") && !input_link.includes("weidian.com")) {
     errors.push("Please enter a valid taobao or weidian link")
   }
@@ -32,43 +47,52 @@ export function validateForm() {
 }
 
 export function handleForm(event) {
-  // Validate the form before submission
-  let errors = validateForm();
+  event.preventDefault(); // Prevent form submission
+  let errors = validateForm(); // Validate the form before submission
   if (errors.length > 0) {
-    event.preventDefault(); // Prevent form submission
     return;
   } else {
     // edit firebase
-    console.log("ok");
+    let productLink = document.getElementById("productLink").value;
+    let size = document.getElementById("size").value;
+    let color = document.getElementById("color").value;
+    let quantity = document.getElementById("quantity").value;
+    testInput(productLink, size, color, quantity);
+    alert("Order has been successfully added!");
   }
 }
 
-// form.addEventListener('submit', handleForm);
-
 // ********************************************* end of form validation *********************************************
 
-// header
-
-const headerTemplate = document.createElement("div");
-headerTemplate.innerHTML = `<div id="header-div">
-<img src="images/agent-yj-logo.png" alt="logo" id="header-logo">
-</div>
-<nav id="header-nav">
-<ul>
-    <li><a href="./index.html">Home</a></li>
-    <li><a href="./login.html">Login</a></li>
-    <li><a href="./place-order.html">Place Order</a></li>
-    <li><a href="./track-order.html">Track Order</a></li>
-</ul>
-</nav>`;
-let sp2 = document.getElementById("childElement");
-let parentDiv = sp2.parentNode;
-parentDiv.insertBefore(headerTemplate, sp2);
-
-// end of header
-
-
 // script to receive from firebase
+import { getDatabase, ref, set, push, child } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
+import { db } from "./firebase.js";
 
+function inputOrder(userId, productLink, size, color, quantity) {
+  // order already exists! are you sure you want to add again?
 
+  var ordersRef = ref('users/' + userId + '/orders/')
+  var newOrderRef = ordersRef.push(); // generates a unique "orderId"
+  newOrderRef.set({
+    productLink: productLink,
+    size: size,
+    color: color,
+    quantity: quantity
+  });
+}
+
+function testInput(productLink, size, color, quantity) {
+  var ordersRef = ref(db, 'orders/');
+  var newOrderRef = push(ordersRef); // generates a unique "orderId"
+  set(newOrderRef, {
+    productLink: productLink,
+    size: size,
+    color: color,
+    quantity: quantity
+  });
+
+};
 // end of script
+
+// script to check order 
+

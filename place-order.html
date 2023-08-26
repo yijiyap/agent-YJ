@@ -10,7 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="src/styles.css">
     <script type="module">
-        import { handleForm, validateForm } from "./src/index.js";
+        import { handleForm } from "./src/index.js";
         // changing the scope 
         window.importedHandleForm = function importedHandleForm(event) {
             handleForm(event);
@@ -28,17 +28,17 @@
         <form action name="order-form" id="order-form" class="place-order-div-form"
             onsubmit="return importedHandleForm(event)" method="post">
             <div>
-                Product Link: <input required type="text" name="product-link" class="input-link">
+                Product Link: <input required type="text" name="productLink" id="productLink">
             </div>
 
             <div>
-                Size: <input required type="text" name="size" class="input-size" placeholder="'NA' if not applicable">
+                Size: <input required type="text" name="size" id="size" placeholder="'NA' if not applicable">
             </div>
             <div>
-                Color: <input requred type="text" name="color" class="input-div" placeholder="'NA' if not applicable">
+                Color: <input requred type="text" name="color" id="color" placeholder="'NA' if not applicable">
             </div>
             <div>
-                Quantity: <input required type="text" name="quantity" class="input-qty">
+                Quantity: <input required type="text" name="quantity" id="quantity">
             </div>
             <input type="submit" value="Place order">
         </form>
