@@ -14,7 +14,10 @@
         // changing the scope 
         window.importedHandleForm = function importedHandleForm(event) {
             handleForm(event);
-        }
+        };
+
+        import { createTestOrdersTable } from "./src/index.js";
+        createTestOrdersTable();
 
     </script>
 
@@ -24,7 +27,16 @@
     <div id="parentElement">
         <span id="childElement"></span>
     </div>
+    <div id="ordersDiv">
+        <h1>Orders</h1>
+        <div id="orderTableDiv">
+
+        </div>
+    </div>
+    
+
     <div class="place-order-div">
+        <h1>Add new orders</h1>
         <form action name="order-form" id="order-form" class="place-order-div-form"
             onsubmit="return importedHandleForm(event)" method="post">
             <div>
@@ -46,9 +58,8 @@
         <div id="place-order-errors">
 
         </div>
-
-
     </div>
+
 </body>
 
 </html>

@@ -7,8 +7,7 @@ headerTemplate.innerHTML = `<div id="header-div">
 <ul>
     <li><a href="./index.html">Home</a></li>
     <li><a href="./login.html">Login</a></li>
-    <li><a href="./place-order.html">Place Order</a></li>
-    <li><a href="./track-order.html">Track Order</a></li>
+    <li><a href="./orders.html">Orders</a></li>
 </ul>
 </nav>`;
 let sp2 = document.getElementById("childElement");
@@ -65,7 +64,7 @@ export function handleForm(event) {
 // ********************************************* end of form validation *********************************************
 
 // script to receive from firebase
-import { getDatabase, ref, set, push, child } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
+import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-database.js";
 import { db } from "./firebase.js";
 
 function inputOrder(userId, productLink, size, color, quantity) {
@@ -88,11 +87,49 @@ function testInput(productLink, size, color, quantity) {
     productLink: productLink,
     size: size,
     color: color,
-    quantity: quantity
+    quantity: quantity,
+    status: "Order received"
   });
 
 };
 // end of script
 
-// script to check order 
-
+// script to print table (right now it only shows when there is a change in data)
+export function createTestOrdersTable() {
+  var ordersRef = ref(db, 'orders/');
+  onValue(ordersRef, (snapshot) => { // when there is a change in the data, we update the table
+    var table = document.createElement('table');
+    var thead = document.createElement('thead');
+    var headers = ["productLink", "size", "color", "quantity", "status"];
+    var tr = document.createElement('tr');
+    for (var i = 0; i < headers.length; i++) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headers[i]));
+      tr.appendChild(th);
+    }
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    var tbody = document.createElement('tbody');
+    const data = snapshot.val();
+    for (var key in data) {
+      var tr = document.createElement('tr');
+      for (var i = 0; i < headers.length; i++) {
+        var td = document.createElement('td');
+        if (headers[i] === "productLink") {
+          var a = document.createElement('a');
+          a.href = data[key][headers[i]];
+          a.textContent = data[key][headers[i]];
+          td.appendChild(a);
+        } else {
+          td.appendChild(document.createTextNode(data[key][headers[i]]));
+        }
+        tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    let orderTableDiv = document.getElementById("orderTableDiv");
+    orderTableDiv.textContent = "";
+    orderTableDiv.appendChild(table);
+  });
+}
