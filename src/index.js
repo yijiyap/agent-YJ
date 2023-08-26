@@ -1,3 +1,14 @@
+import { app } from './firebase.js';
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
+let auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User is signed in");
+  } else {
+    console.log("User is not signed in");
+  }
+});
+
 // header
 const headerTemplate = document.createElement("div");
 headerTemplate.innerHTML = `<div id="header-div">
@@ -6,7 +17,6 @@ headerTemplate.innerHTML = `<div id="header-div">
 <nav id="header-nav">
 <ul>
     <li><a href="./index.html">Home</a></li>
-    <li><a href="./login.html">Login</a></li>
     <li><a href="./orders.html">Orders</a></li>
 </ul>
 </nav>`;

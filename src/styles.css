@@ -6,14 +6,17 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
 .adColumn {
     flex: 1;
     margin: 0 10px;
 }
+
 #rightColumn {
     flex: 1;
     margin: 0 10px;
 }
+
 #content {
     flex: 3;
     margin: 0 10px;
@@ -110,7 +113,7 @@ nav a {
 #forFlexing {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-        gap: 10px;
+    gap: 10px;
 }
 
 #customerCountDiv {
@@ -149,7 +152,9 @@ nav a {
     color: white;
 }
 
-table,th,td {
+table,
+th,
+td {
     border: 1px solid;
 }
 
@@ -158,10 +163,22 @@ table,th,td {
     margin: 20px;
 }
 
-#leftColumn{
+#leftColumn {
     border-right: 1px solid grey;
 }
 
-#rightColumn{
+#rightColumn {
     border-left: 1px solid grey;
+}
+
+#authDiv {
+    margin: 10px 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.authForm {
+    display: inline-block;
+    margin: 0px 20px;
 }
