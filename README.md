@@ -1,4 +1,5 @@
 # agent-YJ
+Make collating orders easier
 ## Problem
 While it is important to amass orders before ordering and shipping internationally, it is quite a hassle to collate everyone's orders and collect payment afterwards. 
 
