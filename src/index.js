@@ -1,4 +1,5 @@
 import { app } from './firebase.js';
+
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
 let auth = getAuth();
 onAuthStateChanged(auth, (user) => {
