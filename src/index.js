@@ -1,6 +1,6 @@
 import { app } from './firebase.js';
 
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js';
 let auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -148,4 +148,41 @@ export function createTestOrdersTable() {
       return;
     }
   });
+}
+
+export function showWelcome() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    var welcomeElement = document.getElementById("welcomeDiv");
+    var signOutBtn = document.getElementById("signOutBtn");
+    var authForms = document.querySelectorAll(".authForm");
+    if (user) {
+      const email = user.email;
+      welcomeElement.textContent = "Welcome " + email;
+      welcomeElement.style.display = "inline-block";
+      authForms.forEach((function (authForm) {
+        authForm.style.display = "none";
+      }))
+      signOutBtn.style.display = 'inline-block';
+    } else {
+      welcomeElement.style.display = "none";
+      authForms.forEach((function (authForm) {
+        authForm.style.display = "inline-block";
+      }))
+      signOutBtn.style.display = 'none';
+    }
+  });
+}
+
+export function handleSignOut() {
+  const signOutBtn = document.getElementById("signOutBtn");
+  const auth = getAuth();
+  signOut(auth).then(() => {
+    alert("Sign out successful");
+    var authForms = document.querySelectorAll(".authForm");
+    authForms.forEach((function (authForm) {
+      authForm.style.display = "inline-block";
+    }))
+    signOutBtn.style.display = 'none';
+  })
 }
