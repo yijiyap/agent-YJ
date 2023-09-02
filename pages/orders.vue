@@ -4,8 +4,8 @@
 
         <div id="mainDiv">
             <div class="adColumn" id="leftColumn">
-                <img class="meme" id="meme3" src="../images/meme3.png" alt="">
-                <img id="meme4" class="meme" src="../images/meme4.jpeg" alt="">
+                <img class="meme" id="meme3" src="/images/meme3.png" alt="">
+                <img id="meme4" class="meme" src="/images/meme4.jpeg" alt="">
             </div>
 
             <div id="content">
@@ -55,8 +55,8 @@
                 </div>
             </div>
             <div class="adColumn" id="rightColumn">
-                <img id="meme1" class="meme" src="../images/meme1.jpg" alt="">
-                <img id="meme2" class="meme" src="../images/meme2.jpg" alt="">
+                <img id="meme1" class="meme" src="/images/meme1.jpg" alt="">
+                <img id="meme2" class="meme" src="/images/meme2.jpg" alt="">
             </div>
         </div>
     </div>
