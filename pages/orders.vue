@@ -9,7 +9,7 @@
             </div>
 
             <div id="content">
-                <div id="ordersDiv">
+                <div id="ordersDiv" class="mt-5">
                     <h1 class="text-4xl">Orders</h1>
                     <div id="orderTableDiv">
 
