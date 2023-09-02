@@ -1,6 +1,6 @@
 <template>
 	<div id="header-div" class="w-full">
-		<img src="../images/agent-yj-logo.png" alt="logo" id="header-logo" class="mx-auto">
+		<img src="/images/agent-yj-logo.png" alt="logo" id="header-logo" class="mx-auto">
 	</div>
 	<nav id="header-nav" class="w-full">
 		<ul>
