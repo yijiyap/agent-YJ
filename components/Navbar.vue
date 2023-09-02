@@ -6,6 +6,7 @@
 		<ul>
 			<li><NuxtLink to="/">Home</NuxtLink></li>
 			<li><NuxtLink to="/orders">Orders</NuxtLink></li>
+			<li><NuxtLink to="/w2c">W2C</NuxtLink></li>
 		</ul>
 	</nav>
 </template>
