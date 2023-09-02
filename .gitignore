@@ -1,3 +1,14 @@
-.env
+# Nuxt dev/build outputs
+.output
+.nuxt
+
+# Logs
+logs
+*.log
+
+# Misc
 .DS_Store
-.dist
+
+# Local env files
+.env.*
+!.env.example

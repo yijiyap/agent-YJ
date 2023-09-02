@@ -11,7 +11,6 @@ This web application aims to make ordering easier for you and I, by creating a s
 - Buzzer to send me spam mail for fun
 
 ## Tech stack
-- JS no framework
+- Nuxt3
 - Firebase
 
-kap
