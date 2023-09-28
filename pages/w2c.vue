@@ -41,7 +41,7 @@ const output = ref("");
 
 const handleSearch = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/process-data", {
+    const response = await fetch("http://localhost:5733/api/process-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
