@@ -30,7 +30,7 @@ class RedditSearch:
         i = 0
         for submission in self.search_results:
             # only want top 6 results
-            if i == 5: 
+            if i == 6: 
                 break
             for item in sorted(submission.gallery_data['items'], key=lambda x: x['id']):
                 media_id = item['media_id']

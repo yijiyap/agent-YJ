@@ -10,7 +10,8 @@ export default defineNuxtConfig({
   ssr: false,
   css: [
     '~/assets/main.css',
-    '~/assets/styles.css'
+    '~/assets/styles.css',
+    'bootstrap/dist/css/bootstrap.css'
   ],
   vuefire: {
     auth: true,
