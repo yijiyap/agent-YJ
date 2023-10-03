@@ -13,3 +13,5 @@ logs
 .env.*
 !.env.example
 .env
+
+agent-yj-ade4a-d5ecd1201b94.json

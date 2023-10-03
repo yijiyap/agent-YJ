@@ -5,13 +5,13 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-icon',
     '@nuxtjs/tailwindcss',
-    'nuxt-vuefire'
+    'nuxt-vuefire',
   ],
   ssr: false,
   css: [
     '~/assets/main.css',
     '~/assets/styles.css',
-    'bootstrap/dist/css/bootstrap.css'
+    'bootstrap/dist/css/bootstrap.css',
   ],
   vuefire: {
     auth: true,
@@ -25,6 +25,5 @@ export default defineNuxtConfig({
       appId: process.env.FIREBASE_APP_ID,
       databaseURL: process.env.FIREBASE_DATABASE_URL,
     },
-
   }
 })

@@ -156,12 +156,6 @@ nav a {
     color: white;
 }
 
-table,
-th,
-td {
-    border: 1px solid;
-}
-
 .meme {
     max-width: 300px;
     margin: 20px;

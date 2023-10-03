@@ -9,7 +9,7 @@
             </div>
 
             <div id="content">
-                <div id="ordersDiv" class="mt-5">
+                <div id="ordersDiv" class="mt-3">
                     <h1 class="text-4xl">Orders</h1>
                     <div id="orderTableDiv">
 
@@ -21,19 +21,19 @@
                     <form action="" name="order-form" id="order-form" class="place-order-div-form" method="post"
                         @submit.prevent="handleForm">
                         <div>
-                            Product Link: <input required type="text" name="productLink" id="productLink">
+                            Product Link: <input required type="text" name="productLink" id="productLink" class="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
                         </div>
                         <div>
-                            Size: <input required type="text" name="size" id="size" placeholder="'NA' if not applicable">
+                            Size: <input required type="text" name="size" id="size" placeholder="'NA' if not applicable" class="mb-3 shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" >
                         </div>
                         <div>
-                            Color: <input requred type="text" name="color" id="color" placeholder="'NA' if not applicable">
+                            Color: <input requred type="text" name="color" id="color" placeholder="'NA' if not applicable" class="mb-3 shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div>
-                            Quantity: <input required type="text" name="quantity" id="quantity">
+                            Quantity: <input required type="text" name="quantity" id="quantity" class="mb-4 shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <button type="submit" value="Place order"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Place
+                            class="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Place
                             Order</button>
                     </form>
 
@@ -63,7 +63,6 @@
 </template>
 
 <script setup>
-
 definePageMeta({
     middleware: ['auth'],
 })
@@ -135,48 +134,51 @@ const inputOrder = async (userId, productLink, size, color, quantity) => {
 
 const createTestOrdersTable = async => {
     const db = getDatabase();
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const userId = user.uid;
-      var ordersRef = ref(db, 'users/' + userId + '/orders/');
-      onValue(ordersRef, (snapshot) => { // when there is a change in the data, we update the table
-        var table = document.createElement('table');
-        var thead = document.createElement('thead');
-        var headers = ["productLink", "size", "color", "quantity", "status"];
-        var tr = document.createElement('tr');
-        for (var i = 0; i < headers.length; i++) {
-          var th = document.createElement('th');
-          th.appendChild(document.createTextNode(headers[i]));
-          tr.appendChild(th);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const userId = user.uid;
+            var ordersRef = ref(db, 'users/' + userId + '/orders/');
+            onValue(ordersRef, (snapshot) => { // when there is a change in the data, we update the table
+                var table = document.createElement('table');
+                table.classList.add("table-auto");
+                var thead = document.createElement('thead');
+                var headers = ["productLink", "size", "color", "quantity", "status"];
+                var tr = document.createElement('tr');
+                for (var i = 0; i < headers.length; i++) {
+                    var th = document.createElement('th');
+                    th.classList.add("px-4", "py-2");
+                    th.appendChild(document.createTextNode(headers[i]));
+                    tr.appendChild(th);
+                }
+                thead.appendChild(tr);
+                table.appendChild(thead);
+                var tbody = document.createElement('tbody');
+                const data = snapshot.val();
+                for (var key in data) {
+                    var tr = document.createElement('tr');
+                    for (var i = 0; i < headers.length; i++) {
+                        var td = document.createElement('td');
+                        if (headers[i] === "productLink") {
+                            var a = document.createElement('a');
+                            a.href = data[key][headers[i]];
+                            a.textContent = data[key][headers[i]];
+                            td.appendChild(a);
+                        } else {
+                            td.appendChild(document.createTextNode(data[key][headers[i]]));
+                        }
+                        td.classList.add("border", "px-4", "py-2");
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                }
+                table.appendChild(tbody);
+                let orderTableDiv = document.getElementById("orderTableDiv");
+                orderTableDiv.textContent = "";
+                orderTableDiv.appendChild(table);
+            });
         }
-        thead.appendChild(tr);
-        table.appendChild(thead);
-        var tbody = document.createElement('tbody');
-        const data = snapshot.val();
-        for (var key in data) {
-          var tr = document.createElement('tr');
-          for (var i = 0; i < headers.length; i++) {
-            var td = document.createElement('td');
-            if (headers[i] === "productLink") {
-              var a = document.createElement('a');
-              a.href = data[key][headers[i]];
-              a.textContent = data[key][headers[i]];
-              td.appendChild(a);
-            } else {
-              td.appendChild(document.createTextNode(data[key][headers[i]]));
-            }
-            tr.appendChild(td);
-          }
-          tbody.appendChild(tr);
-        }
-        table.appendChild(tbody);
-        let orderTableDiv = document.getElementById("orderTableDiv");
-        orderTableDiv.textContent = "";
-        orderTableDiv.appendChild(table);
-      });
-    } 
-  });
+    });
 }
 
 </script>
